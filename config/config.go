@@ -56,22 +56,23 @@ type alertManagerConfig struct {
 }
 
 type SignaliloConfig struct {
-	UUID                 string
-	HostName             string
-	IcingaConfig         icingaConfig
-	GcInterval           time.Duration
-	AlertManagerConfig   alertManagerConfig
-	HeartbeatInterval    time.Duration
-	LogLevel             int
-	KeepFor              time.Duration
-	CAData               string
-	StaticServiceVars    map[string]string
-	CustomSeverityLevels map[string]string
-	MergedSeverityLevels map[string]int
-	ActiveChecks         bool
-	ChecksInterval       time.Duration
-	CheckCommand         string
-	MaxCheckAttempts     int
+	UUID                         string
+	HostName                     string
+	IcingaConfig                 icingaConfig
+	GcInterval                   time.Duration
+	AlertManagerConfig           alertManagerConfig
+	HeartbeatInterval            time.Duration
+	LogLevel                     int
+	KeepFor                      time.Duration
+	CAData                       string
+	StaticServiceVars            map[string]string
+	CustomSeverityLevels         map[string]string
+	MergedSeverityLevels         map[string]int
+	ActiveChecks                 bool
+	ChecksInterval               time.Duration
+	CheckCommand                 string
+	MaxCheckAttempts             int
+	ReWriteServiceNameIfNotValid bool
 }
 
 func ConfigInitialize(configuration Configuration) {

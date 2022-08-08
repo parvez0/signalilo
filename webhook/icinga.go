@@ -29,6 +29,11 @@ func validateServiceName(serviceName string) bool {
 	return re.MatchString(serviceName)
 }
 
+func rewriteServiceName(serviceName string) string {
+	replacer := strings.NewReplacer(" ", "-", "[^-+_.:,a-zA-Z0-9]", "")
+	return replacer.Replace(serviceName)
+}
+
 // mapToStableString converts a map of alert labels to a string
 // representation which is stable if the same map of alert labels is provided
 // to subsequent calls of mapToStableString.
@@ -69,6 +74,11 @@ func computeServiceName(
 		l.V(2).Infof("alert doesn't have label 'alertname', just using %v as service name", labelhash)
 	}
 	serviceName = fmt.Sprintf("%v_%v", serviceName, labelhash)
+
+	if c.GetConfig().ReWriteServiceNameIfNotValid {
+		serviceName = rewriteServiceName(serviceName)
+		l.Infof("service name rewritten to %s", serviceName)
+	}
 
 	if validateServiceName(serviceName) {
 		return serviceName, nil

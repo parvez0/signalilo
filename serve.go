@@ -189,6 +189,7 @@ func configureServeCommand(app *kingpin.Application) {
 	serve.Flag("icinga_service_checks_interval", "Interval (in seconds) to be used for icinga check_interval and retry_interval").Envar("SIGNALILO_ICINGA_SERVICE_CHECKS_INTERVAL").Default("12h").DurationVar(&s.config.ChecksInterval)
 	serve.Flag("icinga_service_max_check_attempts", "The maximum number of checks which are executed before changing to a hard state").Envar("SIGNALILO_ICINGA_SERVICE_MAX_CHECK_ATTEMPTS").Default("1").IntVar(&s.config.MaxCheckAttempts)
 	serve.Flag("icinga_static_service_var", "A variable to be set on each Icinga service created by Signalilo. The expected format is variable=value. Can be repeated.").Envar("SIGNALILO_ICINGA_STATIC_SERVICE_VAR").StringMapVar(&s.config.StaticServiceVars)
+	serve.Flag("icinga_rewrite_service_name", "Rewriting service by removing special characters and space and replace with '-' to meet icinga provided naming conventions").Envar("SIGNALILO_ICINGA_REWRITE_SERVICE_NAME").BoolVar(&s.config.ReWriteServiceNameIfNotValid)
 
 	// Alert manager configuration
 	serve.Flag("alertmanager_port", "Listening port for the Alertmanager webhook").Default("8888").Envar("SIGNALILO_ALERTMANAGER_PORT").IntVar(&s.port)
